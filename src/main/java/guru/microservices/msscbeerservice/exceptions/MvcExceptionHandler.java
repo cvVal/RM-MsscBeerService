@@ -1,4 +1,4 @@
-package guru.microservices.msscbeerservice.web.controller;
+package guru.microservices.msscbeerservice.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
