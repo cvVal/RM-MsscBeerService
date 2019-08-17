@@ -1,8 +1,10 @@
 package guru.microservices.msscbeerservice.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import guru.microservices.msscbeerservice.bootstrap.BeerLoader;
 import guru.microservices.msscbeerservice.domain.Beer;
 import guru.microservices.msscbeerservice.repositories.BeerRepository;
+import guru.microservices.msscbeerservice.services.BeerService;
 import guru.microservices.msscbeerservice.web.model.BeerDto;
 import guru.microservices.msscbeerservice.web.model.BeerStyleEnum;
 import org.junit.jupiter.api.Test;
@@ -48,7 +50,9 @@ class BeerControllerTest {
     @MockBean
     BeerRepository beerRepository;
 
-    @Test
+    @MockBean
+    BeerService beerService;
+
     void getBeerById() throws Exception {
 
         given(beerRepository.findById(any())).willReturn(Optional.of(Beer.builder().build()));
@@ -123,7 +127,7 @@ class BeerControllerTest {
                 .beerName("My beer")
                 .beerStyle(BeerStyleEnum.GOSE)
                 .price(new BigDecimal("2.99"))
-                .upc(123123123123L)
+                .upc(BeerLoader.BEER_3_UPC)
                 .build();
     }
 

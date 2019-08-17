@@ -1,6 +1,7 @@
 package guru.microservices.msscbeerservice.web.model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import guru.microservices.msscbeerservice.bootstrap.BeerLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
@@ -22,7 +23,7 @@ public class BaseTest {
                 .lastModifiedDate(OffsetDateTime.now())
                 .localDate(LocalDate.now())
                 .price(new BigDecimal("12.99"))
-                .upc(123987123123L)
+                .upc(BeerLoader.BEER_2_UPC)
                 .build();
     }
 }

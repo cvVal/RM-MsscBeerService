@@ -1,5 +1,6 @@
 package guru.microservices.msscbeerservice.services;
 
+import guru.microservices.msscbeerservice.bootstrap.BeerLoader;
 import guru.microservices.msscbeerservice.domain.Beer;
 import guru.microservices.msscbeerservice.exceptions.NotFoundException;
 import guru.microservices.msscbeerservice.mappers.BeerMapper;
@@ -37,7 +38,7 @@ public class BeerServiceImpl implements BeerService {
         beer.setBeerName("Corona");
         beer.setBeerStyle("Light");
         beer.setPrice(BigDecimal.valueOf(9.99));
-        beer.setUpc(1238993889991L);
+        beer.setUpc(BeerLoader.BEER_1_UPC);
 
         return beerMapper.beerToBeerDto(beerRepository.save(beer));
     }
