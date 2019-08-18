@@ -5,7 +5,6 @@ import guru.microservices.msscbeerservice.bootstrap.BeerLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -21,7 +20,6 @@ public class BaseTest {
                 .id(UUID.randomUUID())
                 .createdDate(OffsetDateTime.now())
                 .lastModifiedDate(OffsetDateTime.now())
-                .localDate(LocalDate.now())
                 .price(new BigDecimal("12.99"))
                 .upc(BeerLoader.BEER_2_UPC)
                 .build();
