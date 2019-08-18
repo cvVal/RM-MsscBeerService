@@ -21,8 +21,7 @@ import org.springframework.util.StringUtils;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 //import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -75,6 +74,16 @@ class BeerControllerTest {
                                 fieldWithPath("price").description("Price"),
                                 fieldWithPath("quantityOnHand").description("Quantity On Hand")
                         )));
+    }
+
+    @Test
+    void getBeerByUpc() throws Exception {
+
+        given(beerService.getByUpc(anyString())).willReturn(getValidBeerDto());
+
+        mockMvc.perform(get("/api/v1/beerUpc/{upc}", "123098")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
