@@ -6,13 +6,15 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
-@Component
+//@Component
 public class BeerLoader implements CommandLineRunner {
 
     public static final String BEER_1_UPC = "06312750024001";
     public static final String BEER_2_UPC = "06312750024002";
     public static final String BEER_3_UPC = "06312750024003";
+    public static final UUID BEER_1_UUID = UUID.fromString("0a818933-087d-47f2-ad83-2f986ed087eb");
 
     private final BeerRepository beerRepository;
 
