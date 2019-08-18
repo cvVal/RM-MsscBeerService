@@ -2,19 +2,15 @@ package guru.microservices.msscbeerservice.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import guru.microservices.msscbeerservice.bootstrap.BeerLoader;
-import guru.microservices.msscbeerservice.domain.Beer;
-import guru.microservices.msscbeerservice.repositories.BeerRepository;
 import guru.microservices.msscbeerservice.services.BeerService;
 import guru.microservices.msscbeerservice.web.model.BeerDto;
 import guru.microservices.msscbeerservice.web.model.BeerStyleEnum;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.constraints.ConstraintDescriptions;
@@ -23,10 +19,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.BDDMockito.given;
 //import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -36,11 +32,9 @@ import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Disabled
 @ExtendWith(RestDocumentationExtension.class)
 @AutoConfigureRestDocs(uriScheme = "Https", uriHost = "dev.pcfch", uriPort = 80)
 @WebMvcTest(BeerController.class)
-@ComponentScan(basePackages = "guru.microservices.msscbeerservice.mappers")
 class BeerControllerTest {
 
     @Autowired
@@ -50,18 +44,15 @@ class BeerControllerTest {
     ObjectMapper objectMapper;
 
     @MockBean
-    BeerRepository beerRepository;
-
-    @MockBean
     BeerService beerService;
 
     @Test
     void getBeerById() throws Exception {
 
-        given(beerRepository.findById(any())).willReturn(Optional.of(Beer.builder().build()));
+        given(beerService.getById(any(), anyBoolean())).willReturn(getValidBeerDto());
 
         mockMvc.perform(get("/api/v1/beer/{beerId}", UUID.randomUUID().toString())
-                .param("iscold", "yes")
+                .param("showInventoryOnHand", "false")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(document("v1/beer-get",
@@ -69,7 +60,8 @@ class BeerControllerTest {
                                 parameterWithName("beerId").description("UUID of desired beer to get.")
                         ),
                         requestParameters(
-                                parameterWithName("iscold").description("Is Beer Cold Query param")
+                                parameterWithName("showInventoryOnHand")
+                                        .description("Query param used optionally to get the inventory on hand available")
                         ),
                         responseFields(
                                 fieldWithPath("beerId").description("Id of Beer"),
