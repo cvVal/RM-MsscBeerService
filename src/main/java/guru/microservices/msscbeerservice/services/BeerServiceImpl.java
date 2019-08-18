@@ -1,6 +1,5 @@
 package guru.microservices.msscbeerservice.services;
 
-import guru.microservices.msscbeerservice.bootstrap.BeerLoader;
 import guru.microservices.msscbeerservice.domain.Beer;
 import guru.microservices.msscbeerservice.exceptions.NotFoundException;
 import guru.microservices.msscbeerservice.mappers.BeerMapper;
@@ -14,8 +13,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-
-import java.math.BigDecimal;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -94,10 +91,10 @@ public class BeerServiceImpl implements BeerService {
 
         Beer beer = beerRepository.findById(beerId).orElseThrow(NotFoundException::new);
 
-        beer.setBeerName("Corona");
-        beer.setBeerStyle("Light");
-        beer.setPrice(BigDecimal.valueOf(9.99));
-        beer.setUpc(BeerLoader.BEER_1_UPC);
+        beer.setBeerName(beerDto.getBeerName());
+        beer.setBeerStyle(beerDto.getBeerStyle().name());
+        beer.setPrice(beerDto.getPrice());
+        beer.setUpc(beerDto.getUpc());
 
         return beerMapper.beerToBeerDto(beerRepository.save(beer));
     }
