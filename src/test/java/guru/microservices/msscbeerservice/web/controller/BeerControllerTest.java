@@ -7,6 +7,7 @@ import guru.microservices.msscbeerservice.repositories.BeerRepository;
 import guru.microservices.msscbeerservice.services.BeerService;
 import guru.microservices.msscbeerservice.web.model.BeerDto;
 import guru.microservices.msscbeerservice.web.model.BeerStyleEnum;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,7 @@ import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@Disabled
 @ExtendWith(RestDocumentationExtension.class)
 @AutoConfigureRestDocs(uriScheme = "Https", uriHost = "dev.pcfch", uriPort = 80)
 @WebMvcTest(BeerController.class)
@@ -53,6 +55,7 @@ class BeerControllerTest {
     @MockBean
     BeerService beerService;
 
+    @Test
     void getBeerById() throws Exception {
 
         given(beerRepository.findById(any())).willReturn(Optional.of(Beer.builder().build()));
