@@ -1,4 +1,4 @@
-package guru.microservices.msscbeerservice.services;
+package guru.microservices.msscbeerservice.services.brewing;
 
 import guru.microservices.msscbeerservice.config.JmsConfig;
 import guru.microservices.msscbeerservice.domain.Beer;
