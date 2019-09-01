@@ -63,7 +63,7 @@ class BeerControllerTest {
                                         .description("Query param used optionally to get the inventory on hand available")
                         ),
                         responseFields(
-                                fieldWithPath("beerId").description("Id of Beer"),
+                                fieldWithPath("id").description("Id of Beer"),
                                 fieldWithPath("version").description("Version number"),
                                 fieldWithPath("createdDate").description("Date Created"),
                                 fieldWithPath("lastModifiedDate").description("Date Updated"),
@@ -99,7 +99,7 @@ class BeerControllerTest {
                 .andExpect(status().isCreated())
                 .andDo(document("v1/beer-new",
                         requestFields(
-                                fields.withPath("beerId").ignored(),
+                                fields.withPath("id").ignored(),
                                 fields.withPath("version").ignored(),
                                 fields.withPath("createdDate").ignored(),
                                 fields.withPath("lastModifiedDate").ignored(),

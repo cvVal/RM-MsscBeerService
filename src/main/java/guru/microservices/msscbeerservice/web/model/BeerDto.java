@@ -1,9 +1,6 @@
 package guru.microservices.msscbeerservice.web.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +9,6 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -25,7 +21,7 @@ public class BeerDto implements Serializable {
     static final long serialVersionUID = 5566471397320841932L;
 
     @Null
-    @JsonProperty("beerId")
+    //@JsonProperty("beerId")
     private UUID id;
 
     @Null
